@@ -7,18 +7,14 @@ import {
   CircularProgress,
   Container,
   Grid,
-  IconButton,
   makeStyles,
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import AlbumIcon from "@material-ui/icons/Album";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import config from "../../config";
-import { setParentData } from "../../store/music/musicActions";
 import { logOut } from "../../store/user/userActions";
-import UserPanel from "./UserPanel/UserPanel";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -35,18 +31,10 @@ const Layout = ({ children }) => {
 
   const state = useSelector((state) => state.music);
   const user = useSelector((state) => state.user.user);
-  const [openDrawer, setOpenDrawer] = useState(user?.token);
   const dispatch = useDispatch();
-  useEffect(() => {
-    Object.keys(state.pageParams).length &&
-      dispatch(setParentData(state.pageParams));
-  }, [dispatch, state.pageParams]);
+
   const logOutHandler = () => {
-    setOpenDrawer(false);
     dispatch(logOut());
-  };
-  const changeOpenDrawer = () => {
-    setOpenDrawer((prevState) => !prevState);
   };
   return (
     <div>
@@ -72,15 +60,6 @@ const Layout = ({ children }) => {
                     </Grid>
                   </div>
                 )}
-                <IconButton
-                  onClick={changeOpenDrawer}
-                  size="medium"
-                  color="secondary"
-                  disabled={!user?.token}
-                >
-                  <AlbumIcon />
-                  Music
-                </IconButton>
 
                 {user?.token && (
                   <>
@@ -93,9 +72,6 @@ const Layout = ({ children }) => {
                     </Button>
                   </>
                 )}
-              </Grid>
-              <Grid item>
-                <UserPanel open={openDrawer} />
               </Grid>
             </Grid>
           </Container>
