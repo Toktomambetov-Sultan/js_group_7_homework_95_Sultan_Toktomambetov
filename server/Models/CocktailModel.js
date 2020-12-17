@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const unpublicUser = require("../tools/models/unpublicUser");
 const Schema = mongoose.Schema;
 
 const CocktailModel = new Schema({
@@ -37,6 +38,14 @@ const CocktailModel = new Schema({
     ],
     required: true,
   },
+});
+
+CocktailModel.post("find", async function (docs, next) {
+  for (let doc of docs) {
+    await unpublicUser(doc);
+  }
+  console.log(docs[0].user);
+  next();
 });
 
 module.exports = CocktailModel;

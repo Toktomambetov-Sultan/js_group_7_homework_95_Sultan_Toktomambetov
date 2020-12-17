@@ -18,8 +18,8 @@ const ButtonsForAdmin = ({ onDelete, onAccept, obj }) => {
           justify="space-between"
           alignItems="center"
         >
-          creater:
-          <Typography variant="subtitle1">{obj.user.username}</Typography>
+          Author:
+          <Typography variant="subtitle1">{obj.user.email}</Typography>
         </Grid>
       </Box>
       <Grid
