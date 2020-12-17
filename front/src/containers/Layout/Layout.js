@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 const Layout = ({ children }) => {
   const classes = useStyles();
 
-  const state = useSelector((state) => state.music);
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
@@ -38,15 +37,12 @@ const Layout = ({ children }) => {
   };
   return (
     <div>
-      <Backdrop className={classes.backdrop} open={state.isLoading}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
       <AppBar component={Box} position="static" pb={2}>
         <Toolbar>
           <Container>
             <Grid container direction="column">
               <Grid item container justify="space-between" alignItems="center">
-                <Typography variant="h4">Music App</Typography>
+                <Typography variant="h4">Cocktail App</Typography>
                 {user?.token && (
                   <div>
                     <Grid container alignItems="center" direction="row">

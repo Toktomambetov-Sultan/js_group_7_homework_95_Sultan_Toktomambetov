@@ -4,9 +4,10 @@ module.exports = {
   port: 8000,
   ImageUploadingDir: path.join(rootDir, "public/images"),
   rootDir,
+  adminEmails: ["sultan.test.tty@gmail.com"],
   FixturesImagesDir: path.join(rootDir, "fixtures/images"),
   GoogleClientId:
-  "380937490366-d5b0il4o3j3too2jgu7tkatu1dr7ra9j.apps.googleusercontent.com",
+    "380937490366-d5b0il4o3j3too2jgu7tkatu1dr7ra9j.apps.googleusercontent.com",
   db: {
     name: "cocktail-app",
     url: "mongodb://localhost:27017/",

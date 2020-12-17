@@ -26,6 +26,41 @@ db.once("open", async () => {
   } catch (e) {
     console.log("Collections were not present, skipping drop...");
   }
-  
+  const user1 = await schema.User.create({
+    email: "cenfy120324@gmail.com",
+    avatarImage:
+      "https://lh5.googleusercontent.com/-skHNUx0Ypb8/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucnrWJ4-pfMZlQutrqU6tiUq8yNlsw/s96-c/photo.jpg",
+    displayName: "Sultan Toktomambetov",
+    role: "user",
+    token: nanoid(),
+  });
+  const ingredient = { name: "ingredient1", quantity: "1unit" };
+
+  await schema.Cocktail.create(
+    {
+      user: user1._id,
+      name: "name",
+      image: "cocktail1.png",
+      published: true,
+      recipe: "recipe",
+      ingredients: [ingredient, ingredient, ingredient],
+    },
+    {
+      user: user1._id,
+      name: "name",
+      image: "cocktail2.png",
+      published: true,
+      recipe: "recipe",
+      ingredients: [ingredient, ingredient, ingredient],
+    },
+    {
+      user: user1._id,
+      name: "name",
+      image: "cocktail3.png",
+      published: true,
+      recipe: "recipe",
+      ingredients: [ingredient, ingredient, ingredient],
+    }
+  );
   db.close();
 });

@@ -35,10 +35,16 @@ router.post("/getInByGoogle", async (req, res) => {
     });
     const payload = response.getPayload();
     let user = await schema.User.findOne({
-      username: payload.email,
+      email: payload.email,
     });
+    // console.log(
+
+    // );
     if (!user) {
       user = new schema.User({
+        role: !!(config.adminEmails.indexOf(payload.email) + 1)
+          ? "admin"
+          : "user",
         email: payload.email,
         displayName: payload.name,
         avatarImage: payload.picture,
@@ -48,6 +54,7 @@ router.post("/getInByGoogle", async (req, res) => {
     await user.save({ validateBeforeSave: false });
     res.send(user);
   } catch (error) {
+    console.log(error);
     res.status(400).send(error);
   }
 });

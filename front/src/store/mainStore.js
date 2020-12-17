@@ -1,4 +1,5 @@
 import userReducer from "./user/userReducer";
+import cocktailReducer from "./cocktail/cocktailReducer";
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
@@ -8,6 +9,7 @@ import { loadFromLocalStorage, saveToLocalStorage } from "./localStoragesTools";
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  cocktail: cocktailReducer,
   user: userReducer,
   router: connectRouter(history),
 });

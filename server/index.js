@@ -27,7 +27,7 @@ const run = async () => {
   app.use(express.json());
 
   app.use("/users", userRouter);
-  app.use("/cocktail", cocktailRouter);
+  app.use("/cocktails", cocktailRouter);
 
   app.listen(config.port, () => {
     console.log(`Server started on ${config.port} port.`);
