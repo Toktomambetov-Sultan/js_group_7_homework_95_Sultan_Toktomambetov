@@ -45,11 +45,11 @@ const CocktailItem = ({ cocktail, onClick, onAccept, onDelete }) => {
           <Grid container direction="column">
             <Grid item container justify="space-between" alignItems="center">
               <Typography variant="h6">Name:</Typography>{" "}
-              <Typography variant="title">{cocktail.name}</Typography>
+              <Typography variant="subtitle1">{cocktail.name}</Typography>
             </Grid>
             <Grid item container justify="space-between" alignItems="center">
               <Typography variant="h6">Published:</Typography>{" "}
-              <Typography variant="title">
+              <Typography variant="subtitle1">
                 {cocktail.published ? "yes" : "no"}
               </Typography>
             </Grid>

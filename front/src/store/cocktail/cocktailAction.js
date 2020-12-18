@@ -57,3 +57,26 @@ export const postCocktail = (data) => {
     }
   };
 };
+
+export const deleteCocktail = (id) => {
+  return async (dispatch, getState) => {
+    dispatch(fetchRequest());
+    try {
+      const headers = {
+        Authorization: getState().user.user?.token,
+      };
+      await axiosOrder.delete("/cocktails/", {
+        data: { id },
+        headers,
+      });
+      
+      const response = await axiosOrder.get("/cocktails/all");
+      dispatch(setCocktails(response.data));
+
+      dispatch(push("/cocktails/all"));
+      dispatch(fetchSuccess());
+    } catch (error) {
+      dispatch(fetchError(error.response.data));
+    }
+  };
+};

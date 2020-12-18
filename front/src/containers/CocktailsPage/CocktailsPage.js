@@ -2,7 +2,10 @@ import { CssBaseline, Grid } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CocktailItem from "../../components/CocktailItem/CocktailItem";
-import { getCocktails } from "./../../store/cocktail/cocktailAction";
+import {
+  deleteCocktail,
+  getCocktails,
+} from "./../../store/cocktail/cocktailAction";
 import Sidebar from "./../../components/Sidebar/Sidebar";
 
 const CocktailsPage = (props) => {
@@ -12,7 +15,9 @@ const CocktailsPage = (props) => {
   useEffect(() => {
     dispatch(getCocktails());
   }, [dispatch]);
-  const onDelete = (id) => console.log(id);
+  const onDelete = (id) => {
+    dispatch(deleteCocktail(id));
+  };
   const onAccept = (id) => console.log(id);
   const onClick = (id) => console.log(id);
 
@@ -22,7 +27,7 @@ const CocktailsPage = (props) => {
         return item.published;
       case "/cocktails/my":
         if (!user?.token) return false;
-        return !item.published && user._id === item.user._id;
+        return user._id === item.user._id;
       default:
         return false;
     }

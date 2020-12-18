@@ -95,4 +95,21 @@ router.post(
   }
 );
 
+router.delete(
+  "/",
+  [authorizationMiddleware(true), permitMiddleware("admin")],
+  async (req, res) => {
+    try {
+      await schema.Cocktail.findByIdAndDelete(req.body.id);
+      res.send({ message: "successfully deleted" });
+    } catch (error) {
+      console.log(error)
+      res.status(400).send({
+        message: "Wrong request.",
+        error,
+      });
+    }
+  }
+);
+
 module.exports = router;

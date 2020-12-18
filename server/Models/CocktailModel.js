@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const unpublicUser = require("../tools/models/unpublicUser");
+const fs = require("fs").promises;
+const config = require("./../config");
 const Schema = mongoose.Schema;
 
 const CocktailModel = new Schema({
@@ -39,6 +41,10 @@ const CocktailModel = new Schema({
       },
     ],
   },
+});
+CocktailModel.post("findOneAndDelete", async function (doc, next) {
+  doc.image && (await fs.unlink(config.ImageUploadingDir + "/" + doc.image));
+  next();
 });
 
 CocktailModel.post("find", async function (docs, next) {
