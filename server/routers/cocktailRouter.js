@@ -82,10 +82,10 @@ router.post(
   [authorizationMiddleware(true), permitMiddleware("admin")],
   async (req, res) => {
     try {
-      const cocktail = await schema.Cocktail.findByIdAndUpdate(req.body.id, {
+      await schema.Cocktail.findByIdAndUpdate(req.body.id, {
         published: true,
       });
-      res.send(cocktail);
+      res.send({ message: "cocktail's just updated." });
     } catch (error) {
       res.status(400).send({
         message: "Wrong request.",
@@ -93,6 +93,12 @@ router.post(
       });
     }
   }
+);
+
+router.post(
+  "/accept",
+  [authorizationMiddleware(true), permitMiddleware("admin")],
+  () => {}
 );
 
 router.delete(
@@ -103,7 +109,7 @@ router.delete(
       await schema.Cocktail.findByIdAndDelete(req.body.id);
       res.send({ message: "successfully deleted" });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       res.status(400).send({
         message: "Wrong request.",
         error,

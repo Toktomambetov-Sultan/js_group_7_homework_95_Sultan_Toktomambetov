@@ -63,7 +63,15 @@ db.once("open", async () => {
       user: user1._id,
       name: "name",
       image: "cocktail3.png",
-      published: true,
+      published: false,
+      recipe: "recipe",
+      ingredients: [ingredient, ingredient, ingredient],
+    },
+    {
+      user: user1._id,
+      name: "name",
+      image: "cocktail4.jpeg",
+      published: false,
       recipe: "recipe",
       ingredients: [ingredient, ingredient, ingredient],
     }

@@ -58,6 +58,28 @@ export const postCocktail = (data) => {
   };
 };
 
+export const acceptCocktail = (id) => {
+  return async (dispatch, getState) => {
+    dispatch(fetchRequest());
+    try {
+      const headers = {
+        Authorization: getState().user.user?.token,
+      };
+      await axiosOrder.post("/cocktails/accept", { id }
+    ,   { headers}
+      );
+
+      const response = await axiosOrder.get("/cocktails/all");
+      dispatch(setCocktails(response.data));
+
+      dispatch(push("/cocktails/all"));
+      dispatch(fetchSuccess());
+    } catch (error) {
+      dispatch(fetchError(error.response.data));
+    }
+  };
+};
+
 export const deleteCocktail = (id) => {
   return async (dispatch, getState) => {
     dispatch(fetchRequest());
@@ -69,7 +91,7 @@ export const deleteCocktail = (id) => {
         data: { id },
         headers,
       });
-      
+
       const response = await axiosOrder.get("/cocktails/all");
       dispatch(setCocktails(response.data));
 

@@ -29,11 +29,20 @@ const Sidebar = () => {
         </NavLink>
       </li>
       {user?.token && (
-        <li>
-          <NavLink to="/cocktails/my" exact>
-            My publications
-          </NavLink>
-        </li>
+        <>
+          <li>
+            <NavLink to="/cocktails/my" exact>
+              My publications
+            </NavLink>
+          </li>
+          {user.role === "admin" && (
+            <li>
+              <NavLink to="/cocktails/admin" exact>
+                All publications
+              </NavLink>
+            </li>
+          )}
+        </>
       )}
     </ul>
   );
