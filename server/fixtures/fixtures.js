@@ -14,6 +14,12 @@ const db = mongoose.connection;
 
 db.once("open", async () => {
   await Promise.all(
+    (await fs.readdir(config.ImageUploadingDir)).map((item) => {
+      if (item === ".gitignore") return;
+      fs.unlink(config.ImageUploadingDir + "/" + item);
+    })
+  );
+  await Promise.all(
     (await fs.readdir(config.FixturesImagesDir)).map((item) =>
       fs.copyFile(
         `${config.FixturesImagesDir}/${item}`,

@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/log_out", authorizationMiddleware, async (req, res) => {
+router.post("/log_out", authorizationMiddleware(true), async (req, res) => {
   try {
     req.user.generateToken();
     await req.user.save({ validateBeforeSave: false });
@@ -37,9 +37,7 @@ router.post("/getInByGoogle", async (req, res) => {
     let user = await schema.User.findOne({
       email: payload.email,
     });
-    // console.log(
 
-    // );
     if (!user) {
       user = new schema.User({
         role: !!(config.adminEmails.indexOf(payload.email) + 1)

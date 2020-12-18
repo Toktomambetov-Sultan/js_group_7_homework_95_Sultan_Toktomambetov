@@ -61,7 +61,6 @@ export const getInByGoogle = (data) => {
   return async (dispatch) => {
     dispatch(fetchRequest());
     try {
-      console.log(data);
       const response = await axiosOrder.post("/users/getInByGoogle", data);
       dispatch(setUserData(response.data));
       dispatch(push(config.pathAfterGetIn));

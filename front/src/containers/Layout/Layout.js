@@ -8,9 +8,11 @@ import {
   Container,
   Grid,
   makeStyles,
+  MenuItem,
   Toolbar,
   Typography,
 } from "@material-ui/core";
+import { push } from "connected-react-router";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import config from "../../config";
@@ -32,9 +34,14 @@ const Layout = ({ children }) => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
+  const changePath = (path) => {
+    dispatch(push(path));
+  };
+
   const logOutHandler = () => {
     dispatch(logOut());
   };
+  
   return (
     <div>
       <AppBar component={Box} position="static" pb={2}>
@@ -43,6 +50,9 @@ const Layout = ({ children }) => {
             <Grid container direction="column">
               <Grid item container justify="space-between" alignItems="center">
                 <Typography variant="h4">Cocktail App</Typography>
+                <MenuItem onClick={() => changePath(config.pathAfterGetIn)}>
+                  <Typography variant="h6">Cocktails</Typography>
+                </MenuItem>
                 {user?.token && (
                   <div>
                     <Grid container alignItems="center" direction="row">
@@ -57,7 +67,7 @@ const Layout = ({ children }) => {
                   </div>
                 )}
 
-                {user?.token && (
+                {user?.token ? (
                   <>
                     <Button
                       variant="outlined"
@@ -67,6 +77,10 @@ const Layout = ({ children }) => {
                       Log out
                     </Button>
                   </>
+                ) : (
+                  <MenuItem onClick={() => changePath("/")}>
+                    <Typography variant="h6">Get in</Typography>
+                  </MenuItem>
                 )}
               </Grid>
             </Grid>

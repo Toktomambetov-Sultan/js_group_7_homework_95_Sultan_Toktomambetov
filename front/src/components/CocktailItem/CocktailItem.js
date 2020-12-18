@@ -27,7 +27,6 @@ const useStyle = makeStyles((theme) => ({
 const CocktailItem = ({ cocktail, onClick, onAccept, onDelete }) => {
   const classes = useStyle();
   const user = useSelector((state) => state.user.user);
-  console.log(cocktail.user);
   return (
     <Grid
       item
@@ -43,8 +42,17 @@ const CocktailItem = ({ cocktail, onClick, onAccept, onDelete }) => {
         className={classes.button}
       >
         <Grid container direction="column">
-          <Grid item>
-            Name: <Typography variant="h6">{cocktail.name}</Typography>
+          <Grid container direction="column">
+            <Grid item container justify="space-between" alignItems="center">
+              <Typography variant="h6">Name:</Typography>{" "}
+              <Typography variant="title">{cocktail.name}</Typography>
+            </Grid>
+            <Grid item container justify="space-between" alignItems="center">
+              <Typography variant="h6">Published:</Typography>{" "}
+              <Typography variant="title">
+                {cocktail.published ? "yes" : "no"}
+              </Typography>
+            </Grid>
           </Grid>
           <Grid item>
             {cocktail.image && (

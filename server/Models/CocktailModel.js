@@ -21,9 +21,11 @@ const CocktailModel = new Schema({
   },
   published: {
     type: Boolean,
+    default: false,
     required: true,
   },
   ingredients: {
+    required: true,
     type: [
       {
         name: {
@@ -36,7 +38,6 @@ const CocktailModel = new Schema({
         },
       },
     ],
-    required: true,
   },
 });
 
@@ -44,7 +45,6 @@ CocktailModel.post("find", async function (docs, next) {
   for (let doc of docs) {
     await unpublicUser(doc);
   }
-  console.log(docs[0].user);
   next();
 });
 
