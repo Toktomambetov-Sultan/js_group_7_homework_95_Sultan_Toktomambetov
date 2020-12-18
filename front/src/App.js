@@ -5,6 +5,7 @@ import Layout from "./containers/Layout/Layout";
 import HomePage from "./containers/HomePage/HomePage";
 import CocktailsPage from "./containers/CocktailsPage/CocktailsPage";
 import AddCocktailPage from "./containers/AddCocktailPage/AddCocktailPage";
+import CocktailPage from "./containers/CocktailPage/CocktailPage";
 const CustomRoute = (props) => {
   const user = useSelector((state) => state.user.user);
   if (user?.token) {
@@ -30,6 +31,8 @@ const App = () => {
         <CustomRoute path="/cocktails/my" exact component={CocktailsPage} />
         <AdminRouter path="/cocktails/admin" exact component={CocktailsPage} />
         <CustomRoute path="/cocktails/add" exact component={AddCocktailPage} />
+        <CustomRoute path="/cocktails/id/:id" exact component={CocktailPage} />
+
         <Redirect to="/" />
       </Switch>
     </Layout>

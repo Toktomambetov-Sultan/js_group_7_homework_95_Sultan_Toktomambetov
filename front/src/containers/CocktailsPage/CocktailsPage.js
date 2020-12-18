@@ -6,8 +6,10 @@ import {
   acceptCocktail,
   deleteCocktail,
   getCocktails,
+  getCurrentCocktail,
 } from "./../../store/cocktail/cocktailAction";
 import Sidebar from "./../../components/Sidebar/Sidebar";
+import { push } from "connected-react-router";
 
 const useStyles = makeStyles((theme) => ({
   cocktailsGrid: {
@@ -32,7 +34,10 @@ const CocktailsPage = (props) => {
   const onAccept = (id) => {
     dispatch(acceptCocktail(id));
   };
-  const onClick = (id) => console.log(id);
+  const onClick = (id) => {
+    console.log(id);
+    dispatch(getCurrentCocktail(id));
+  };
 
   const filteredCocktails = state.cocktails.filter((item) => {
     switch (props.history.location.pathname) {

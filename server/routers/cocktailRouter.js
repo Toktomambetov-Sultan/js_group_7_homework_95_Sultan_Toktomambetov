@@ -31,6 +31,32 @@ router.get("/all", authorizationMiddleware(false), async (req, res) => {
   }
 });
 
+router.get("/one", authorizationMiddleware(false), async (req, res) => {
+  try {
+    const cocktail = await schema.Cocktail.find({
+      $or: [
+        {
+          published: true,
+        },
+        {
+          published: req.user && req.user.role !== "admin",
+        },
+        {
+          user: req.user && req.user._id,
+        },
+      ],
+      _id: req.query.id,
+    });
+
+    res.send(cocktail[0]);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      message: "Wrong request.",
+    });
+  }
+});
+
 const ingredientErrorSend = (res, message) =>
   res.status(400).send({
     error: {

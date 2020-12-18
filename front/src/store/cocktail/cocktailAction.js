@@ -3,6 +3,7 @@ import {
   FETCH_SUCCESS,
   FETCH_ERROR,
   SET_COCKTAILS,
+  SET_CURRENT_COCKTAIL,
 } from "./../actionsTypes";
 import axiosOrder from "./../../axiosOrder";
 import jsonToFormData from "./../../tools/FormDataTools/jsonToFormData";
@@ -19,6 +20,10 @@ const fetchError = (error) => {
 };
 const setCocktails = (data) => {
   return { type: SET_COCKTAILS, data };
+};
+
+const setCurretnCocktail = (data) => {
+  return { type: SET_CURRENT_COCKTAIL, data };
 };
 
 export const getCocktails = () => {
@@ -65,9 +70,7 @@ export const acceptCocktail = (id) => {
       const headers = {
         Authorization: getState().user.user?.token,
       };
-      await axiosOrder.post("/cocktails/accept", { id }
-    ,   { headers}
-      );
+      await axiosOrder.post("/cocktails/accept", { id }, { headers });
 
       const response = await axiosOrder.get("/cocktails/all");
       dispatch(setCocktails(response.data));
@@ -87,6 +90,7 @@ export const deleteCocktail = (id) => {
       const headers = {
         Authorization: getState().user.user?.token,
       };
+
       await axiosOrder.delete("/cocktails/", {
         data: { id },
         headers,
@@ -97,6 +101,26 @@ export const deleteCocktail = (id) => {
 
       dispatch(push("/cocktails/all"));
       dispatch(fetchSuccess());
+    } catch (error) {
+      dispatch(fetchError(error.response.data));
+    }
+  };
+};
+
+export const getCurrentCocktail = (id) => {
+  return async (dispatch, getState) => {
+    dispatch(fetchRequest());
+    try {
+      const headers = {
+        Authorization: getState().user.user?.token,
+      };
+      const response = await axiosOrder.get("/cocktails/one?id=" + id, {
+        headers,
+      });
+      console.log(response.data);
+      dispatch(setCurretnCocktail(response.data));
+      dispatch(fetchSuccess());
+      dispatch(push("/cocktails/id/" + id));
     } catch (error) {
       dispatch(fetchError(error.response.data));
     }
