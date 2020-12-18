@@ -1,4 +1,4 @@
-import { Box, Button, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Box, Grid, makeStyles, Typography } from "@material-ui/core";
 
 import React from "react";
 import config from "../../config";
@@ -57,6 +57,18 @@ const CocktailTemplate = ({ cocktail }) => {
             >
               <Typography variant="h6">Author:</Typography>
               <Typography variant="h6">{cocktail?.user.email}</Typography>
+            </Grid>
+            <Grid
+              item
+              container
+              className={classes.element}
+              direction="row"
+              justify="space-between"
+            >
+              <Typography variant="h6">Published:</Typography>
+              <Typography variant="h6">
+                {cocktail?.published ? "yes" : "no"}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>

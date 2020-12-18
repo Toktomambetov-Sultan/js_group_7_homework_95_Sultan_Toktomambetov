@@ -32,6 +32,7 @@ const Layout = ({ children }) => {
   const classes = useStyles();
 
   const user = useSelector((state) => state.user.user);
+  const isLoading = useSelector((state) => state.cocktail.isLoading);
   const dispatch = useDispatch();
 
   const changePath = (path) => {
@@ -41,7 +42,7 @@ const Layout = ({ children }) => {
   const logOutHandler = () => {
     dispatch(logOut());
   };
-  
+
   return (
     <div>
       <AppBar component={Box} position="static" pb={2}>
@@ -89,6 +90,9 @@ const Layout = ({ children }) => {
       </AppBar>
 
       <Box component="main" paddingTop="5px">
+        <Backdrop open={isLoading} className={classes.backdrop}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <Container>{children}</Container>
       </Box>
     </div>

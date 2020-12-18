@@ -38,7 +38,7 @@ const Sidebar = () => {
           {user.role === "admin" && (
             <li>
               <NavLink to="/cocktails/admin" exact>
-                All publications
+                All requests
               </NavLink>
             </li>
           )}
